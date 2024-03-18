@@ -1,0 +1,163 @@
+Microsoft Windows [Version 10.0.19045.4046]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\mlm>mongod --version
+db version v7.0.6
+Build Info: {
+    "version": "7.0.6",
+    "gitVersion": "66cdc1f28172cb33ff68263050d73d4ade73b9a4",
+    "modules": [],
+    "allocator": "tcmalloc",
+    "environment": {
+        "distmod": "windows",
+        "distarch": "x86_64",
+        "target_arch": "x86_64"
+    }
+}
+
+C:\Users\mlm>mongosh
+Current Mongosh Log ID: 65f5995b1b14c0196a8bf201
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.2.0
+Using MongoDB:          7.0.6
+Using Mongosh:          2.2.0
+
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2024-03-16T11:07:36.178+00:00: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+test> show dbs
+admin    40.00 KiB
+config  108.00 KiB
+local    40.00 KiB
+test> use student
+switched to db student
+student> db.dbms.insertOne({"rollno":1,"name":"visal"})
+{dmin    40.00 KiB
+  acknowledged: true,
+  insertedId: ObjectId('65f59a7a1b14c0196a8bf202')
+}
+student> db.dbms.updateOne({rollno:1},{$set:{name:"sam"}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+student> db.dbms.drop()
+true
+student> show collections
+
+student> db.dropDatabase()
+{ ok: 1, dropped: 'student' }
+student> show dbs
+admin    40.00 KiB
+config  108.00 KiB
+local    40.00 KiB
+student> use admin
+switched to db admin
+admin> use school
+switched to db school
+school> use univ
+switched to db univ
+univ> use dbms
+switched to db dbms
+dbms> db
+dbms
+dbms> db.createCollections("marklist")
+TypeError: db.createCollections is not a function
+dbms> db.createCollections("marklist")
+TypeError: db.createCollections is not a function
+dbms> db.createCollection("marklist")
+{ ok: 1 }
+dbms> show colletions
+MongoshInvalidInputError: [COMMON-10001] 'colletions' is not a valid argument for "show".
+dbms> show collections
+marklist
+dbms> db.createCollection("parentdetails")
+{ ok: 1 }
+dbms> show collections
+marklist
+parentdetails
+dbms> db
+dbms
+dbms> db.marklist.drop()
+true
+dbms> show collections
+parentdetails
+dbms> db.marklist.insert(
+... {
+... sname:"ram",
+... saddr:"kottayam",
+... marks:"40",
+... grade:"A"
+... }
+... )
+DeprecationWarning: Collection.insert() is deprecated. Use insertOne, insertMany, or bulkWrite.
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('65f59d0a1b14c0196a8bf203') }
+}
+dbms> db.marklist.find()
+[
+  {
+    _id: ObjectId('65f59d0a1b14c0196a8bf203'),
+    sname: 'ram',
+    saddr: 'kottayam',
+    marks: '40',
+    grade: 'A'
+  }
+]
+dbms> db.marklist.find().pretty()
+[
+  {
+    _id: ObjectId('65f59d0a1b14c0196a8bf203'),
+    sname: 'ram',
+    saddr: 'kottayam',
+    marks: '40',
+    grade: 'A'
+  }
+]
+dbms> db.marklist.insert( { sname: "sam", saddr: "kottayam", marks: "78", grade: "B" } )
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('65f59e181b14c0196a8bf204') }
+}
+dbms> db.marklist.find().pretty()
+[
+  {
+    _id: ObjectId('65f59d0a1b14c0196a8bf203'),
+    sname: 'ram',
+    saddr: 'kottayam',
+    marks: '40',
+    grade: 'A'
+  },
+  {
+    _id: ObjectId('65f59e181b14c0196a8bf204'),
+    sname: 'sam',
+    saddr: 'kottayam',
+    marks: '78',
+    grade: 'B'
+  }
+]
+dbms> db.marklist.find()
+[
+  {
+    _id: ObjectId('65f59d0a1b14c0196a8bf203'),
+    sname: 'ram',
+    saddr: 'kottayam',
+    marks: '40',
+    grade: 'A'
+  },
+  {
+    _id: ObjectId('65f59e181b14c0196a8bf204'),
+    sname: 'sam',
+    saddr: 'kottayam',
+    marks: '78',
+    grade: 'B'
+  }
+]
+dbms> 
