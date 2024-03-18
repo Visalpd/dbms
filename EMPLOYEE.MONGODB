@@ -1,0 +1,147 @@
+dbms> use student                                                                                                           .0.0000
+switched to db student
+student> create database mlm
+Uncaught:
+SyntaxError: Missing semicolon. (1:6)
+
+> 1 | create database mlm
+    |       ^
+  2 |
+
+student> db.createCollections("employe")
+TypeError: db.createCollections is not a function
+student> db.createCollection("employee")
+{ ok: 1 }
+student> db.employee.insertOne({"eid":1,"ename":"rojin"})
+{
+  acknowledged: true,
+  insertedId: ObjectId('65f5a3f21b14c0196a8bf205')
+}
+student> show employee
+MongoshInvalidInputError: [COMMON-10001] 'employee' is not a valid argument for "show".
+student> show collections
+employee
+student> db.employee.insert( { eid: "11", ename: "rojin" } )
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('65f5a48c1b14c0196a8bf206') }
+}
+student> db.employee.find()
+[
+  { _id: ObjectId('65f5a3f21b14c0196a8bf205'), eid: 1, ename: 'rojin' },
+  {
+    _id: ObjectId('65f5a48c1b14c0196a8bf206'),
+    eid: '11',
+    ename: 'rojin'
+  }
+]
+student> db.employee.insert( { eid: "12", ename: "visal" } )
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('65f5a4b51b14c0196a8bf207') }
+}
+student> db.employee.find()
+[
+  { _id: ObjectId('65f5a3f21b14c0196a8bf205'), eid: 1, ename: 'rojin' },
+  {
+    _id: ObjectId('65f5a48c1b14c0196a8bf206'),
+    eid: '11',
+    ename: 'rojin'
+  },
+  {
+    _id: ObjectId('65f5a4b51b14c0196a8bf207'),
+    eid: '12',
+    ename: 'visal'
+  }
+]
+student> db.employee.insert( { eid: "13", ename: "zaina" } )
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('65f5a4c81b14c0196a8bf208') }
+}
+student> db.employee.insert( { eid: "14", ename: "alvin" } )
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('65f5a4d21b14c0196a8bf209') }
+}
+student> db.employee.insert( { eid: "15", ename: "gibin" } )
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('65f5a4dd1b14c0196a8bf20a') }
+}
+student> db.employee.find()
+[
+  { _id: ObjectId('65f5a3f21b14c0196a8bf205'), eid: 1, ename: 'rojin' },
+  {
+    _id: ObjectId('65f5a48c1b14c0196a8bf206'),
+    eid: '11',
+    ename: 'rojin'
+  },
+  {
+    _id: ObjectId('65f5a4b51b14c0196a8bf207'),
+    eid: '12',
+    ename: 'visal'
+  },
+  {
+    _id: ObjectId('65f5a4c81b14c0196a8bf208'),
+    eid: '13',
+    ename: 'zaina'
+  },
+  {
+    _id: ObjectId('65f5a4d21b14c0196a8bf209'),
+    eid: '14',
+    ename: 'alvin'
+  },
+  {
+    _id: ObjectId('65f5a4dd1b14c0196a8bf20a'),
+    eid: '15',
+    ename: 'gibin'
+  }
+]
+student> show collections
+employee
+student> db.createCollection("salary")
+{ ok: 1 }
+student> db.salary.insert( { name: "nandhu", income: "25000" } )
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('65f5a5a61b14c0196a8bf20b') }
+}
+student> db.salary.insert( { name: "anandhu", income: "30000" } )
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('65f5a5b31b14c0196a8bf20c') }
+}
+student> show collections
+employee
+salary
+student> db.salary.find()
+[
+  {
+    _id: ObjectId('65f5a5a61b14c0196a8bf20b'),
+    name: 'nandhu',
+    income: '25000'
+  },
+  {
+    _id: ObjectId('65f5a5b31b14c0196a8bf20c'),
+    name: 'anandhu',
+    income: '30000'
+  }
+]
+student> db.salary.remove({name:"anandhu"})
+DeprecationWarning: Collection.remove() is deprecated. Use deleteOne, deleteMany, findOneAndDelete, or bulkWrite.
+{ acknowledged: true, deletedCount: 1 }
+student> db.salary.find()
+[
+  {
+    _id: ObjectId('65f5a5a61b14c0196a8bf20b'),
+    name: 'nandhu',
+    income: '25000'
+  }
+]
+student> db.salary.drop()
+true
+student> db.salary.find()
+
+student>
+
