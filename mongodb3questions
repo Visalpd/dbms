@@ -1,0 +1,114 @@
+test> use univ
+switched to db univ
+univ> db.createCollection("s1mca")
+univ> db.s1mca.insertMany([{roll:1,name:'visal',age:21,dept:'cse',mark:40,gender:'M'},{roll:2,name:'akshay',age:22,dept:'cse',mark:45,gender:'M'},{roll:3,name:'vinod',age:23,dept:'eee',mark:56,gender:'M'},{roll:4,name:'nithya',age:26,dept:'mba',mark:77,gender:'F'}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('6613ba5fae7f4fdf108bf202'),
+    '1': ObjectId('6613ba5fae7f4fdf108bf203'),
+    '2': ObjectId('6613ba5fae7f4fdf108bf204'),
+    '3': ObjectId('6613ba5fae7f4fdf108bf205')
+  }
+}
+univ> db.s1mca.find()
+[
+  {
+    _id: ObjectId('6613ba5fae7f4fdf108bf202'),
+    roll: 1,
+    name: 'visal',
+    age: 21,
+    dept: 'cse',
+    mark: 40,
+    gender: 'M'
+  },
+  {
+    _id: ObjectId('6613ba5fae7f4fdf108bf203'),
+    roll: 2,
+    name: 'akshay',
+    age: 22,
+    dept: 'cse',
+    mark: 45,
+    gender: 'M'
+  },
+  {
+    _id: ObjectId('6613ba5fae7f4fdf108bf204'),
+    roll: 3,
+    name: 'vinod',
+    age: 23,
+    dept: 'eee',
+    mark: 56,
+    gender: 'M'
+  },
+  {
+    _id: ObjectId('6613ba5fae7f4fdf108bf205'),
+    roll: 4,
+    name: 'nithya',
+    age: 26,
+    dept: 'mba',
+    mark: 77,
+    gender: 'F'
+  }
+]
+univ> db.s1mca.find({gender:'F'});
+[
+  {
+    _id: ObjectId('6613ba5fae7f4fdf108bf205'),
+    roll: 4,
+    name: 'nithya',
+    age: 26,
+    dept: 'mba',
+    mark: 77,
+    gender: 'F'
+  }
+]
+univ> db.s1mca.find({gender:'M'});
+[
+  {
+    _id: ObjectId('6613ba5fae7f4fdf108bf202'),
+    roll: 1,
+    name: 'visal',
+    age: 21,
+    dept: 'cse',
+    mark: 40,
+    gender: 'M'
+  },
+  {
+    _id: ObjectId('6613ba5fae7f4fdf108bf203'),
+    roll: 2,
+    name: 'akshay',
+    age: 22,
+    dept: 'cse',
+    mark: 45,
+    gender: 'M'
+  },
+  {
+    _id: ObjectId('6613ba5fae7f4fdf108bf204'),
+    roll: 3,
+    name: 'vinod',
+    age: 23,
+    dept: 'eee',
+    mark: 56,
+    gender: 'M'
+  }
+]
+univ> db.s1mca.find({dept:'eee'}).count();
+1
+univ> db.s1mca.find({dept:'mba'}).count();
+1
+univ> db.s1mca.find({dept:'cse'}).count();
+2
+univ> db.s1mca.aggregate([{$group:{_id:'$div',total_students:{$sum:1}}}])
+[ { _id: null, total_students: 4 } ]
+univ> db.s1mca.aggregate([{$group:{_id:'$dept',total_students:{$sum:1}}}])
+[
+  { _id: 'cse', total_students: 2 },
+  { _id: 'eee', total_students: 1 },
+  { _id: 'mba', total_students: 1 }
+]
+univ> db.s1mca.aggregate([{$group:{_id:'$dept',avg_mark:{$avg:'$mark'}}}])
+[
+  { _id: 'cse', avg_mark: 42.5 },
+  { _id: 'eee', avg_mark: 56 },
+  { _id: 'mba', avg_mark: 77 }
+]
